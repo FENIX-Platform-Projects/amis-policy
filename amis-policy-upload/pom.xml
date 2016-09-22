@@ -30,75 +30,46 @@
             <artifactId>upload-manager-core</artifactId>
             <version>${upload.manager.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.fao.ess</groupId>
+            <artifactId>upload-manager-FTP-storage</artifactId>
+            <version>${upload.manager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fao.ess</groupId>
+            <artifactId>upload-manager-orient-metadata</artifactId>
+            <version>${upload.manager.version}</version>
+        </dependency>
 
-        <!-- SSH -->
-        <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>${jsch.version}</version>
-        </dependency>
-        <!-- JDBC Client -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.jdbc.version}</version>
-        </dependency>
-        <!-- D3S commons & utils -->
-        <dependency>
-            <groupId>org.fao.fenix</groupId>
-            <artifactId>fenix-commons-dxf</artifactId>
-            <version>${fenix.commons.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.orientechnologies</groupId>
-            <artifactId>orientdb-client</artifactId>
-            <version>${orient.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.orientechnologies</groupId>
-            <artifactId>orientdb-object</artifactId>
-            <version>${orient.version}</version>
-        </dependency>
-        <!-- REST Client -->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>${resteasy.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
-            <version>${resteasy.version}</version>
-        </dependency>
-        <!-- Excel -->
+        <!-- Excel (to remove) -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-examples</artifactId>
             <version>${apache.poi.version}</version>
         </dependency>
-        <!-- CSV parser -->
+        <!-- CSV parser (legacy) -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>${apache.commons.csv.version}</version>
         </dependency>
 
-        <!-- Jackson utils support -->
+
+        <!-- Tests -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se</artifactId>
+            <version>2.3.5.Final</version>
+            <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
+
 
 
     </dependencies>
