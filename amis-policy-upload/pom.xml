@@ -41,6 +41,13 @@
             <version>${upload.manager.version}</version>
         </dependency>
 
+        <!-- Policy download API -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>amis-policy-download</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Excel (to remove) -->
         <dependency>
             <groupId>org.apache.poi</groupId>

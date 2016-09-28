@@ -3,7 +3,7 @@ package org.fao.amis.policy.init;
 import org.fao.ess.uploader.core.init.UploaderConfig;
 import org.fao.oecd.policy.dto.HostProperties;
 import org.fao.oecd.policy.dto.PolicyConfig;
-import org.fao.oecd.policy.upload.bulk.attachments.impl.FileManager;
+import org.fao.oecd.policy.download.bulk.attachments.impl.FileManager;
 import org.fao.oecd.policy.utils.DataSource;
 
 import javax.inject.Inject;

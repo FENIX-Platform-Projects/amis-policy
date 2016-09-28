@@ -1,6 +1,6 @@
 package org.fao.amis.policy.rest;
 
-import org.fao.amis.policy.dao.impl.CommodityDb;
+import org.fao.amis.policy.dao.impl.CommodityDao;
 import org.fao.amis.policy.dto.full.Commodity;
 import org.fao.amis.policy.dto.search.CommoditySearch;
 import org.fao.amis.policy.rest.spi.CommoditySpi;
@@ -13,28 +13,34 @@ import java.util.List;
 public class CommodityService implements CommoditySpi {
 
     @Inject
-    private CommodityDb dao;
+    private CommodityDao dao;
 
+    @Override
     public List<Commodity> getCommodities() throws Exception {
         return dao.retrieveAll();
     }
 
+    @Override
     public Commodity getCommodity(String id) throws Exception {
         return dao.retrieve(Integer.parseInt(id));
     }
+    @Override
 
     public Commodity postCommodity(Commodity commodity) throws Exception {
         return dao.insert(commodity);
     }
 
+    @Override
     public Commodity putCommodity(Commodity commodity) throws Exception {
         return dao.updateRecordToTable(commodity);
     }
 
+    @Override
     public Commodity deleteCommodity(String id) throws Exception {
         return dao.delete(Integer.parseInt(id));
     }
 
+    @Override
     public List<Commodity> search(CommoditySearch searchCommodityBean) {
         return dao.search(searchCommodityBean);
     }

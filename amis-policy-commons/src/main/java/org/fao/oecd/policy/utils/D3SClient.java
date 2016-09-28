@@ -1,5 +1,6 @@
 package org.fao.oecd.policy.utils;
 
+import org.fao.fenix.commons.find.dto.filter.CodesFilter;
 import org.fao.fenix.commons.find.dto.filter.FieldFilter;
 import org.fao.fenix.commons.find.dto.filter.IdFilter;
 import org.fao.fenix.commons.find.dto.filter.StandardFilter;
@@ -8,6 +9,8 @@ import org.fao.fenix.commons.msd.dto.data.Resource;
 import org.fao.fenix.commons.msd.dto.full.*;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotSupportedException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -20,6 +23,38 @@ import java.util.*;
 
 @ApplicationScoped
 public class D3SClient {
+
+    public Collection<Code> filterCodelist(String baseUrl, String uid, String version, Collection<String> codes) throws Exception {
+        return filterCodelist(baseUrl, uid, version, codes, 1);
+    }
+    public Collection<Code> filterCodelist(String baseUrl, String uid, String version, Collection<String> codes, Integer levels) throws Exception {
+        //Create filter
+        CodesFilter filter = new CodesFilter();
+
+        filter.uid = uid;
+        filter.version = version;
+        filter.codes = codes;
+        filter.levels = levels;
+
+        return filterCodelist(baseUrl, filter);
+
+    }
+    public Collection<Code> filterCodelist(String baseUrl, CodesFilter filter) throws Exception {
+        //Check parameters
+        if (filter==null || filter.uid==null)
+            throw new BadRequestException();
+        //Send request
+        Map<String,String> parameters = new HashMap<>();
+        parameters.put("maxSize","1000000");
+        String url = addQueryParameters(baseUrl+"msd/codes/filter", parameters);
+        Response response = sendRequest(url, filter, "post");
+        if (response.getStatus() != 200 && response.getStatus() != 201 && response.getStatus() != 204)
+            throw new Exception("Error from D3S filtering codelist "+filter.uid);
+
+        //Parse response
+        return response.getStatus()!=204 ? response.readEntity(new GenericType<Collection<Code>>(){}) : new LinkedList<Code>();
+    }
+
 
     public Collection<MeIdentification<DSDDataset>> retrieveMetadata(String baseUrl) throws Exception {
         //Create filter

@@ -23,5 +23,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Policy download API -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>amis-policy-download</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

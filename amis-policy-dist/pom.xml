@@ -42,14 +42,29 @@
                     <version>1.0</version>
 					<exclusions>
 						<exclusion>
-							<groupId>org.javassist</groupId>
+							<groupId>javassist</groupId>
 							<artifactId>javassist</artifactId>
 						</exclusion>
-
 					</exclusions>
-
                 </dependency>
-            </dependencies>
+				<!-- JavaAssist -->
+				<dependency>
+					<groupId>org.javassist</groupId>
+					<artifactId>javassist</artifactId>
+					<version>3.19.0-GA</version>
+				</dependency>
+				<!-- REST Client -->
+				<dependency>
+					<groupId>org.jboss.resteasy</groupId>
+					<artifactId>resteasy-client</artifactId>
+					<version>${resteasy.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.resteasy</groupId>
+					<artifactId>resteasy-jackson-provider</artifactId>
+					<version>${resteasy.version}</version>
+				</dependency>
+			</dependencies>
         </profile>
     </profiles>
 
@@ -66,12 +81,17 @@
 		<!-- Plugins and other components -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>amis-policy-metadata</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>amis-policy-upload</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>amis-policy-metadata</artifactId>
+			<artifactId>amis-policy-download</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

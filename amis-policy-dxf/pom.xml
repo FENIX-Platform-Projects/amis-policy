@@ -10,4 +10,12 @@
     <artifactId>amis-policy-dxf</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>org.fao.fenix</groupId>
+            <artifactId>fenix-commons-dxf</artifactId>
+            <version>${fenix.commons.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
