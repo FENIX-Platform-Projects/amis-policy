@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-@BulkName("biofuel")
-public class Biofuel implements BulkDownload {
+@BulkName("biofuelDetailed")
+public class BiofuelDetailed implements BulkDownload {
     @Inject BiofuelDao dao;
     @Inject BulkExcel excelbuilder;
     @Inject FileUtils fileUtils;
@@ -26,49 +26,51 @@ public class Biofuel implements BulkDownload {
         //Validate parameters
         Collection<Code> countries = (Collection<Code>) parameters.get("countries");
         Collection<Code> policyTypes = (Collection<Code>) parameters.get("policyTypes");
+        Collection<Code> policyMeasures = (Collection<Code>) parameters.get("policyMeasures");
         if (countries==null || policyTypes==null)
-            throw new Exception("Countries or policy types codelists not found");
+            throw new Exception("Countries, policy types or policy measures codelists not found");
 
         //Prepare codes maps
         Map<String, String> countriesMap = toMap(countries,Language.english);
         Map<String, String> policyTypesMap = toMap(policyTypes,Language.english);
+        Map<String, String> policyMeasuresMap = toMap(policyMeasures,Language.english);
 
         //Retrieve data
-        Collection<Object[]> ethanolData = dao.countriesCountByMonthPolicyType("5", countriesMap, policyTypesMap);
-        Collection<Object[]> biodieselData = dao.countriesCountByMonthPolicyType("6", countriesMap, policyTypesMap);
-        Collection<Object[]> biofuelData = dao.countriesCountByMonthPolicyType("7", countriesMap, policyTypesMap);
-        Collection<Object[]> allData = dao.countriesCountByMonthPolicyType(null, countriesMap, policyTypesMap);
+        Collection<Object[]> ethanolData = dao.countriesCountByMonthPolicyTypePolicyMeasure("5", countriesMap, policyTypesMap, policyMeasuresMap);
+        Collection<Object[]> biodieselData = dao.countriesCountByMonthPolicyTypePolicyMeasure("6", countriesMap, policyTypesMap, policyMeasuresMap);
+        Collection<Object[]> biofuelData = dao.countriesCountByMonthPolicyTypePolicyMeasure("7", countriesMap, policyTypesMap, policyMeasuresMap);
+        Collection<Object[]> allData = dao.countriesCountByMonthPolicyTypePolicyMeasure(null, countriesMap, policyTypesMap, policyMeasuresMap);
 
         //Create file structure
         Properties biofuelBulkProperties = loadProperties();
-        File folder = new File(tmpFolder, biofuelBulkProperties.getProperty("bulk.folder.name.biofuel"));
+        File folder = new File(tmpFolder, biofuelBulkProperties.getProperty("bulk.folder.name.biofuel.detailed"));
         folder.mkdir();
-        File bulkFile = new File(tmpFolder, biofuelBulkProperties.getProperty("bulk.file.name.biofuel"));
+        File bulkFile = new File(tmpFolder, biofuelBulkProperties.getProperty("bulk.file.name.biofuel.detailed"));
 
         //Create excel files
         excelbuilder.createExcel(
                 ethanolData.iterator(),
                 new File(folder, biofuelBulkProperties.getProperty("commodity.class.file.name.5")),
-                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.5"),
-                3
+                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.detailed.5"),
+                4
         );
         excelbuilder.createExcel(
                 biodieselData.iterator(),
                 new File(folder, biofuelBulkProperties.getProperty("commodity.class.file.name.6")),
-                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.6"),
-                3
+                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.detailed.6"),
+                4
         );
         excelbuilder.createExcel(
                 biofuelData.iterator(),
                 new File(folder, biofuelBulkProperties.getProperty("commodity.class.file.name.7")),
-                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.7"),
-                3
+                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.detailed.7"),
+                4
         );
         excelbuilder.createExcel(
                 allData.iterator(),
                 new File(folder, biofuelBulkProperties.getProperty("commodity.class.file.name.all")),
-                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.all"),
-                3
+                biofuelBulkProperties.getProperty("commodity.class.title.biofuel.detailed.all"),
+                4
         );
 
         //create bulk file

@@ -18,7 +18,7 @@ public class BulkExcel {
     }
     Map<Styles,CellStyle> stylesMap = new HashMap<>();
 
-    public File createExcel(Iterator<Object[]> data, File destination, String title) throws Exception {
+    public File createExcel(Iterator<Object[]> data, File destination, String title, int countryColumnsIndex) throws Exception {
         //Create sheet
         HSSFWorkbook wb = new HSSFWorkbook();
         try {
@@ -27,9 +27,9 @@ public class BulkExcel {
             initStyles(wb);
             //Create sheet header
             Object[] headerData = data.next();
-            createHeader(sheet, title, headerData);
+            createHeader(sheet, title, headerData, countryColumnsIndex);
             //Create sheet data section
-            int rangeHeight = createData(sheet, data);
+            int rangeHeight = createData(sheet, data, countryColumnsIndex);
             //Create border
             int rangeWidth = headerData.length;
             CellRangeAddress range = new CellRangeAddress(0,rangeHeight-1, 0,rangeWidth-1);
@@ -62,7 +62,7 @@ public class BulkExcel {
 
     //Excel building methods
 
-    private void createHeader (HSSFSheet sheet, String title, Object[] headerData) {
+    private void createHeader (HSSFSheet sheet, String title, Object[] headerData, int countryColumnsIndex) {
         Row row = sheet.createRow(0);
         newCell(row,0,Styles.bold).setCellValue("Source:");
         newCell(row,1,Styles.normal).setCellValue("AMIS Policy Database");
@@ -75,22 +75,22 @@ public class BulkExcel {
         newCell(row,0,Styles.bold).setCellValue(title);
 
         row = sheet.createRow(4);
-        newCell(row,0,Styles.bold).setCellValue("Period");
-        newCell(row,1,Styles.bold).setCellValue("Policy Type");
-        newCell(row,2,Styles.bold).setCellValue("Sum of AMIS countries");
-        for (int i=3; i<headerData.length; i++)
+        for (int i=0; i<countryColumnsIndex; i++)
+            newCell(row,i,Styles.bold).setCellValue((String)headerData[i]);
+        for (int i=countryColumnsIndex; i<headerData.length; i++)
             newCell(row,i,Styles.centerBold).setCellValue((String)headerData[i]);
     }
 
-    private int createData (HSSFSheet sheet, Iterator<Object[]> data) {
+    private int createData (HSSFSheet sheet, Iterator<Object[]> data, int countryColumnsIndex) {
         int r=5;
         for (; data.hasNext(); r++) {
             Object[] dataRow = data.next();
 
             Row row = sheet.createRow(r);
             newCell(row,0,Styles.normal).setCellValue(formatMonthDate((Integer)dataRow[0]));
-            newCell(row,1,Styles.normal).setCellValue((String)dataRow[1]);
-            for (int i=2; i<dataRow.length; i++)
+            for (int i=1; i<countryColumnsIndex-1; i++)
+                newCell(row,i,Styles.normal).setCellValue((String)dataRow[i]);
+            for (int i=countryColumnsIndex-1; i<dataRow.length; i++)
                 newCell(row,i,Styles.centerNormal).setCellValue((Integer)dataRow[i]);
         }
         return r;

@@ -1,7 +1,5 @@
 package org.fao.oecd.policy.download.bulk.impl;
 
-import org.fao.fenix.commons.msd.dto.data.Resource;
-import org.fao.fenix.commons.msd.dto.full.DSDCodelist;
 import org.fao.fenix.commons.utils.FileUtils;
 import org.fao.oecd.policy.download.bulk.BulkDownload;
 import org.fao.oecd.policy.download.bulk.BulkDownloadFactory;
@@ -16,7 +14,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BiofuelTest {
+public class BiofuelDetailedTest {
     PolicyConfig config;
     DataSource dataSource;
     FileUtils fileUtils;
@@ -31,7 +29,7 @@ public class BiofuelTest {
         dataSource = CDISupport.getInstance(DataSource.class);
         fileUtils = CDISupport.getInstance(FileUtils.class);
         d3sClient = CDISupport.getInstance(D3SClient.class);
-        folder = new File("/tmp/policy/biofuel");
+        folder = new File("/tmp/policy/biofuelDetailed");
 
         config.init(this.getClass().getResourceAsStream("/org/fao/amis/policy/config/main.properties"));
         dataSource.init(config.get("policy.db.url"),config.get("policy.db.usr"),config.get("policy.db.psw"));
@@ -49,10 +47,11 @@ public class BiofuelTest {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("countries", d3sClient.filterCodelist(getD3sBaseUrl(), "OECD_Country", "1.0", null, 1));
         parameters.put("policyTypes", d3sClient.filterCodelist(getD3sBaseUrl(), "OECD_PolicyType", "1.0", null));
+        parameters.put("policyMeasures", d3sClient.filterCodelist(getD3sBaseUrl(), "OECD_PolicyMeasure", "1.0", null));
 
         BulkDownloadFactory factory = CDISupport.getInstance(BulkDownloadFactory.class);
-        BulkDownload biofuel = factory.getInstance("biofuel");
-        zipFile = biofuel.createFile(folder, parameters);
+        BulkDownload biofuelDetailed = factory.getInstance("biofuelDetailed");
+        zipFile = biofuelDetailed.createFile(folder, parameters);
     }
 
 
