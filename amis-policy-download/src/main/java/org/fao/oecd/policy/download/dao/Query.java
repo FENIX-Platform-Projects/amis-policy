@@ -1,8 +1,8 @@
 package org.fao.oecd.policy.download.dao;
 
 public enum Query {
-    Timeseries_Biofuel_download (
-            "WITH timeseries AS (SELECT to_number(to_char(generate_series('2011-01-01'::TIMESTAMP, '2014-12-31'::TIMESTAMP, '1 month'),'YYYYMM'),'999999') AS MONTH)\n" +
+    Timeseries_download(
+            "WITH timeseries AS (SELECT to_number(to_char(generate_series('<<from>>'::TIMESTAMP, '<<to>>'::TIMESTAMP, '1 month'),'YYYYMM'),'999999') AS MONTH)\n" +
                     "SELECT final.policytype,\n" +
                     "       final.month,\n" +
                     "       final.country\n" +
@@ -17,7 +17,7 @@ public enum Query {
                     "      FROM\n" +
                     "\t(\t SELECT cpl_id,policytype_code,country_code\n" +
                     "\t\t FROM cpl\n" +
-                    "\t\t WHERE policytype_code IN ('8', '10', '1', '2', '12', '9') AND commodityclass_code IN (<<commodityClass>>)\n" +
+                    "\t\t WHERE policytype_code IN (<<policyType>>) AND commodityclass_code IN (<<commodityClass>>)\n" +
                     "\t\t GROUP BY cpl_id,policytype_code,country_code\n" +
                     "         ) m, policy\n" +
                     "      WHERE m.cpl_id = policy.cpl_id\n" +
@@ -29,8 +29,8 @@ public enum Query {
                     "         final.month"
     ),
 
-    Timeseries_Biofuel_Detailed_download (
-            "WITH timeseries AS (SELECT to_number(to_char(generate_series('2011-01-01'::TIMESTAMP, '2014-12-31'::TIMESTAMP, '1 month'),'YYYYMM'),'999999') AS MONTH)\n" +
+    Timeseries_Detailed_download(
+            "WITH timeseries AS (SELECT to_number(to_char(generate_series('<<from>>'::TIMESTAMP, '<<to>>'::TIMESTAMP, '1 month'),'YYYYMM'),'999999') AS MONTH)\n" +
                     "SELECT final.policytype,\n" +
                     "       final.policymeasure,\n" +
                     "       final.month,\n" +
@@ -47,7 +47,7 @@ public enum Query {
                     "      FROM\n" +
                     "\t(\t SELECT cpl_id,policytype_code,policymeasure_code,country_code\n" +
                     "\t\t FROM cpl\n" +
-                    "\t\t WHERE policytype_code IN ('8', '10', '1', '2', '12', '9') AND commodityclass_code IN (<<commodityClass>>)\n" +
+                    "\t\t WHERE policytype_code IN (<<policyType>>) AND commodityclass_code IN (<<commodityClass>>)\n" +
                     "\t\t GROUP BY cpl_id,policytype_code,policymeasure_code,country_code\n" +
                     "         ) m, policy\n" +
                     "      WHERE m.cpl_id = policy.cpl_id\n" +
