@@ -15,11 +15,6 @@
         <!-- Commons and dxf -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>amis-policy-commons</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>amis-policy-dxf</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -41,43 +36,19 @@
             <version>${upload.manager.version}</version>
         </dependency>
 
-        <!-- Policy download API -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>amis-policy-download</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Excel (to remove) -->
+        <!-- Excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-examples</artifactId>
             <version>${apache.poi.version}</version>
         </dependency>
-        <!-- CSV parser (legacy) -->
+
+        <!-- CSV parser -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>${apache.commons.csv.version}</version>
         </dependency>
-
-
-        <!-- Tests -->
-        <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se</artifactId>
-            <version>2.3.5.Final</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-
 
     </dependencies>
 </project>

@@ -11,6 +11,14 @@
 
 
     <dependencies>
+        <!-- commons -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>amis-policy-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- fenix dxf -->
         <dependency>
             <groupId>org.fao.fenix</groupId>
             <artifactId>fenix-commons-dxf</artifactId>

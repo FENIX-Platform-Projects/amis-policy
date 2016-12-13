@@ -32,18 +32,22 @@
         <apache.poi.version>3.14</apache.poi.version>
         <postgresql.jdbc.version>9.4-1201-jdbc41</postgresql.jdbc.version>
         <jsch.version>0.1.51</jsch.version>
+        <google.api.version>1.22.0</google.api.version>
+        <google.api.gmail.version>v1-rev48-1.22.0</google.api.gmail.version>
 
         <upload.manager.version>1.0-SNAPSHOT</upload.manager.version>
+        <export.manager.version>1.0-SNAPSHOT</export.manager.version>
         <fenix.commons.version>1.0.1-SNAPSHOT</fenix.commons.version>
     </properties>
+
 
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -73,5 +77,43 @@
 	    <version>7.0</version>        
 	    <scope>provided</scope>
 	</dependency>
-  </dependencies>
+
+       <!-- Jackson utils support -->
+       <dependency>
+           <groupId>com.fasterxml.jackson.jaxrs</groupId>
+           <artifactId>jackson-jaxrs-json-provider</artifactId>
+           <version>${jackson.version}</version>
+       </dependency>
+
+       <!-- Tests -->
+       <dependency>
+           <groupId>org.jboss.weld.se</groupId>
+           <artifactId>weld-se</artifactId>
+           <version>2.3.5.Final</version>
+           <scope>test</scope>
+       </dependency>
+
+       <!-- REST Client -->
+       <dependency>
+           <groupId>org.jboss.resteasy</groupId>
+           <artifactId>resteasy-client</artifactId>
+           <version>${resteasy.version}</version>
+           <scope>test</scope>
+       </dependency>
+
+       <dependency>
+           <groupId>org.jboss.resteasy</groupId>
+           <artifactId>resteasy-jackson-provider</artifactId>
+           <version>${resteasy.version}</version>
+           <scope>test</scope>
+       </dependency>
+
+       <dependency>
+           <groupId>junit</groupId>
+           <artifactId>junit</artifactId>
+           <version>4.12</version>
+           <scope>test</scope>
+       </dependency>
+
+   </dependencies>
 </project>

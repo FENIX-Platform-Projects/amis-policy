@@ -12,17 +12,11 @@
 
     <dependencies>
 
-        <!-- Core -->
+        <!-- commons & dxf -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>amis-policy-dxf</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <!-- D3S commons & utils -->
-        <dependency>
-            <groupId>org.fao.fenix</groupId>
-            <artifactId>fenix-commons-dxf</artifactId>
-            <version>${fenix.commons.version}</version>
         </dependency>
 
     </dependencies>
