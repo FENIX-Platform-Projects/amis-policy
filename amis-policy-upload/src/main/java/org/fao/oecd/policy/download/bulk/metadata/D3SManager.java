@@ -2,13 +2,13 @@ package org.fao.oecd.policy.download.bulk.metadata;
 
 import org.fao.ess.uploader.core.dto.ChunkMetadata;
 import org.fao.ess.uploader.core.dto.FileMetadata;
-import org.fao.ess.uploader.core.init.UploaderConfig;
 import org.fao.ess.uploader.core.metadata.MetadataStorage;
 import org.fao.ess.uploader.core.process.PostUpload;
 import org.fao.ess.uploader.core.process.ProcessInfo;
 import org.fao.ess.uploader.core.storage.BinaryStorage;
 import org.fao.oecd.policy.download.bulk.metadata.impl.XLStoCSV;
 import org.fao.oecd.policy.download.bulk.metadata.dto.MetadataGroups;
+import org.fao.oecd.policy.dto.PolicyConfig;
 import org.fao.oecd.policy.utils.D3SClient;
 import org.fao.oecd.policy.download.bulk.metadata.impl.MetadataCreator;
 import org.fao.fenix.commons.msd.dto.data.Resource;
@@ -27,7 +27,7 @@ import java.util.*;
 public class D3SManager implements PostUpload {
     @Inject private XLStoCSV csvConverter;
     @Inject private MetadataCreator metadataFactory;
-    @Inject private UploaderConfig config;
+    @Inject private PolicyConfig config;
     @Inject private D3SClient d3SClient;
     @Inject private FileUtils fileUtils;
 
@@ -148,7 +148,7 @@ public class D3SManager implements PostUpload {
             logic.metadataFactory = new MetadataCreator();
             logic.metadataFactory.fileUtils = new FileUtils();
             logic.d3SClient = new D3SClient();
-            logic.config = new UploaderConfig();
+            logic.config = new PolicyConfig();
             logic.config.add("policy.d3s.url", "http://fenix.fao.org/d3s_dev/");
 
             Collection<MeIdentification<DSDDataset>> metadataList = logic.createMetadata(excelFileInput, "dsdDefault");
